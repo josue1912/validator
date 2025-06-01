@@ -21,7 +21,7 @@ public class ValidationManagerFactory {
 		// Cria e registra um novo gerenciador se não existir para este tipo
 		if (!managers.containsKey(type)) {
 			if (type == Investor.class) {
-				managers.put(Investor.class, new InvestorValidationManager());
+				managers.put(type, new InvestorValidationManager());
 			} else if (type == Product.class) {
 				managers.put(type, new ProductValidationManager());
 			} else {
