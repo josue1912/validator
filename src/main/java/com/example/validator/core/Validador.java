@@ -1,15 +1,15 @@
 package com.example.validator.core;
 
 /**
- * Interface que as regras devem implementar para serem validadas no fluxo de validação
+ * Contrato que os validadores devem implementar para serem validados no fluxo de validação
  *
- * @param <Validavel>
+ * @param <Validatable>
  */
-public interface Validador<Validavel> {
+public interface Validador<Validatable> {
 
-	boolean isValid(Validavel data);
+	boolean isValid(Validatable data);
 
-	boolean interrompeValidacao();
+	boolean stopsValidation();
 
-	String getErro();
+	ValidationError getValidationError();
 }

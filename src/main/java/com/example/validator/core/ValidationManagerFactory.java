@@ -1,9 +1,9 @@
 package com.example.validator.core;
 
-import com.example.validator.domain.validadores.ProdutoValidationManager;
-import com.example.validator.domain.validaveis.Produto;
-import com.example.validator.domain.validaveis.Investidor;
-import com.example.validator.domain.validadores.InvestidorValidationManager;
+import com.example.validator.example.validatable.Investor;
+import com.example.validator.example.validatable.Product;
+import com.example.validator.example.validation_manager.InvestorValidationManager;
+import com.example.validator.example.validation_manager.ProductValidationManager;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,22 +17,22 @@ public class ValidationManagerFactory {
 	private static final Map<Class<?>, ValidationManager<?>> managers = new HashMap<>();
 
 	@SuppressWarnings("unchecked")
-	public static <Validavel> ValidationManager<Validavel> getManagerForType(Class<Validavel> type) {
+	public static <Validatable> ValidationManager<Validatable> getValidationManagerForType(Class<Validatable> type) {
 		// Cria e registra um novo gerenciador se não existir para este tipo
 		if (!managers.containsKey(type)) {
-			if (type == Investidor.class) {
-				managers.put(Investidor.class, new InvestidorValidationManager());
-			} else if (type == Produto.class) {
-				managers.put(type, new ProdutoValidationManager());
+			if (type == Investor.class) {
+				managers.put(Investor.class, new InvestorValidationManager());
+			} else if (type == Product.class) {
+				managers.put(type, new ProductValidationManager());
 			} else {
-				// Para outros tipos, você pode ter um gerenciador genérico ou lançar uma exceção se o tipo não for suportado
-				throw new IllegalArgumentException("Nenhum gerenciador de validação configurado para o tipo: " + type.getName());
+				// Para outros tipos, você pode ter um gerenciador genérico ou lançar uma exception se o tipo não for suportado
+				throw new IllegalArgumentException("Nenhum gerenciador de validação configurado para o tipo [" + type.getName() + "]");
 			}
 		}
-		return (ValidationManager<Validavel>) managers.get(type);
+		return (ValidationManager<Validatable>) managers.get(type);
 	}
 
-	// Método para resetar a fábrica (útil para testes, etc.)
+	// Metodo para resetar a fábrica (útil para testes, etc.)
 	public static void resetFactory() {
 		managers.clear();
 	}
